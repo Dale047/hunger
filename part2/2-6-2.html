@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>2-6</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<!--v-model 双向数据绑定-->
+	<input type="text" name="serach" v-model="inputValue">
+	<button v-on:click="handleBtnClick">搜索</button>
+	<ul>
+		<todo-item v-bind:content="list" v-for="list in lists"></todo-item>
+	</ul>
+</div>
+<script type="text/javascript">
+	/*
+	 * 这里是局部组件
+	 */
+	//component用于组件模块化使用
+	//以对象的形式在局部组件中传值
+	var TodoItem = {
+		props: ['content'],
+		template:"<li>{{content}}</li>"
+	}
+
+	var app = new Vue({
+		el:"#app",
+		//创建了局部组件，在这里需要注册才能使用
+		components: {
+			TodoItem:TodoItem
+		},
+		data:{
+			lists:[],
+			inputValue:''
+		},
+		methods:{
+			handleBtnClick:function(){
+				this.lists.push(this.inputValue);
+				/*每次向li数组中添加数据后自动置空*/
+				this.inputValue = ''
+			}
+		}
+	})
+</script>
+</body>
+</html>
