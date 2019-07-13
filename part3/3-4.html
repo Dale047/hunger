@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>计算属性，方法和监听</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	{{fullName}}
+	{{age}}
+    {{fullNameMe()}}
+</div>
+<script type="text/javascript">
+    var vm = new Vue({
+		el: "#app",
+		data: {
+			firstName:"Dale",
+			lastName:"Lee",
+			age:24
+		},
+		/*
+		 * methods 函数每更新一次页面就重新被渲染
+		 * 无论改变什么，都会被重新渲染
+		 */
+		methods: {
+			fullNameMe: function() {
+				console.log("函数计算一次");
+				return this.firstName + " " +this.lastName
+			}
+		},
+		/*
+		 * computed计算属性，是函数
+		 * 计算属性有缓存机制
+		 * 当更改数据的时候，页面不需要重新刷新
+		 * 依赖数据的缓存被保留
+		 * 只有当计算属性值改变时才会重新渲染页面
+		 */
+		computed: {
+			fullName: function() {
+				console.log("计算属性");
+				return this.firstName + " " +this.lastName
+			}
+		},
+		/*
+		 * watch 用于监听指定参数的变化而做出改变
+		 */
+		watch: {
+			firstName: function() {
+				console.log("firstName被改变");
+			},
+			lastName: function() {
+				console.log("lastName被改变");
+			}
+		}
+	})
+</script>
+</body>
+</html>
