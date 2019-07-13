@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue的模版语法</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<!--这种通过data赋值的方式叫做插值表达式-->
+	{{msg}}
+	<!--通过v-text绑定插入模版-->
+	<div v-text="msg"></div>
+	<p v-text="msg"></p>
+	<h1 v-text="msg" v-on:click="msg"></h1>
+	<!--通过v-html绑定插入模版-->
+	<div v-html="msg"></div>
+</div>
+<script type="text/javascript">
+    /*
+     * v-text:会对转html的内容做转义
+     * 可以输出html标签内容
+     */
+     /*
+     * v-html:不会对转html的内容做转义
+     * 直接将效果输出在页面
+     * 改变html样式
+     */
+    var vm = new Vue({
+		el: "#app",
+		data: {
+			msg: "HelloWorld"
+		},
+	})
+</script>
+</body>
+</html>
