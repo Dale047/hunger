@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue的实例</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<div v-on:click="handleClick">
+		{{msg}}
+	</div>
+	<item></item>
+</div>
+<script type="text/javascript">
+	Vue.component("item",{
+		template: "<div>我是全局组件item</div>"
+	})
+
+	//vm一般指的都是vue的实例，让实例去接管页面DOM，赋值;
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			msg : "Hello"
+		},
+		methods: {
+			handleClick :function(){
+				alert('asd');
+			}
+		}
+	})
+</script>
+</body>
+</html>
