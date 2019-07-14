@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中的样式绑定/绑定class数组</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style type="text/css">
+		.activated {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<!--如果绑定的是数组，那么是变量值-->
+	<!--请在浏览器查看DOM变化-->
+	<!--此方式允许数组多个参数-->
+	<!--更改class的属性参数值/Vue中全部通过v-bind动态绑定-->
+	<div v-on:click="handleDivClick" v-bind:class="[activated,activatedOne]">
+		{{msg}}
+	</div>
+</div>
+<script type="text/javascript">
+    var vm = new Vue({
+		el: "#app",
+		data: {
+			msg: "HelloWorld!",
+			//初始化数据，不展示class
+			activated: "",
+			activatedOne: "activated-One",
+		},
+		methods: {
+			handleDivClick: function() {
+				//单击样式更改class类名，三目运算
+				this.activated = this.activated == "activated" ? "" : "activated"
+			}
+		}
+	})
+</script>
+</body>
+</html>
