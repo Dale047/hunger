@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中的样式绑定/进一步更改style</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<!--更改style的内联属性参数值（对象）/Vue中全部通过v-bind动态绑定-->
+	<div v-bind:style="[styleObj,{fontSize:'20px'}]" v-on:click="handleDivClick">
+		{{msg}}
+	</div>
+</div>
+<script type="text/javascript">
+    var vm = new Vue({
+		el: "#app",
+		data: {
+			msg: "HelloWorld!",
+			//初始化数据，默认值
+			styleObj: {
+				color: "black"
+			}
+		},
+		methods: {
+			handleDivClick: function() {
+				this.styleObj.color = this.styleObj.color == "black" ? "red" : "black"
+			}
+		}
+	})
+</script>
+</body>
+</html>
