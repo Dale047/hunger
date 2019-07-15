@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中对象set实例方法</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<!--数组循环参数是value(值),index(下标)-->
+	<!--对象循环参数是value(值),key(键),index(下标)-->
+	<div v-for="(info,key,index) of userInfo">
+		{{info}} => {{key}}
+	</div>
+</div>
+<script type="text/javascript">
+    var vm = new Vue({
+		el: "#app",
+		data: {
+			msg: "HelloWorld!",
+			/*定义一组数据列表，此处模拟后台发送的数据*/
+			/**
+			 * Vue中set方法指的是对象添加数据也会立即渲染DOM
+			 * 添加 address = "Beijing"
+			 * vm.$set(vm.$data.userInfo,"address","beijing")
+			 * 第一个参数：指向的对象
+			 * 第二个参数：对象的键
+			 * 第三个参数：对象键指向的值
+			 * 数据会被添加到对象，并且会立即生效，渲染到DOM中
+			 */
+			userInfo: {
+				name: "Dale",
+				age: 22,
+				sex: "boy"
+			}
+		},
+	})
+</script>
+</body>
+</html>
