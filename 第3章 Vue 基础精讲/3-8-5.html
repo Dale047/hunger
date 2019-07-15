@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中列表渲染/修改值方法2</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<!--此处循环随意用in还是of，更推荐of-->
+	<!--第一个参数：循环项；第二个参数：下标-->
+	<!--为了提高性能打到唯一，要给每一个循环项加上唯一key值-->
+	<div v-for="(user,index) of users" v-bind:key="user.id">
+		{{index}} => {{user.title}}
+	</div>
+</div>
+<script type="text/javascript">
+    var vm = new Vue({
+		el: "#app",
+		data: {
+			msg: "HelloWorld!",
+			/*定义一组数据列表，此处模拟后台发送的数据*/
+			/**
+			 * 动态添加，直接将数据push到数组/DOM里
+			 * vm.$data.users.push({id:"1",title:"haha"})
+			 */
+			/**
+			 * vm.$data.users[2] = ({id:"3",title:"jiji"})
+			 * 不能通过数组的下表直接概述数组信息
+			 * 上面这种修改不会报错，但不会生效
+			 */
+			/**
+			 * Vue 数组中提供的方法
+			 * pop() 将最后一项删除：vm.$data.users.pop()
+			 * push() 添加数据信息：vm.$data.users.push({id:"1",title:"haha"})
+			 * shift() 将第一项删除 :vm.$data.users.shift()
+			 * unshift() 将数组第一项添加内容
+			 * splice() 将数组进行切割 第一个参数：下标；第二个参数，删除几项
+			 * sort() 对数组进行排序 
+			 * reverse() 对数组进行取反
+			 */
+			/**
+			 * 现在修改第二项数据为：{id:"0002",title:"watching1"}
+			 * 方法2：
+			 * 数组在JavaScript里属于引用类型
+			 * 如果此处更改引用值，那么页面肯定也会随着更改渲染DOM
+			 * vm.$data.users = [
+									{
+										id: "0001",
+										title: "swimming"
+									},
+									{
+										id: "0002",
+										title: "watching1"
+									},
+									{
+										id: "0003",
+										title: "meeting"
+									}
+								],
+			 * 让数据指向新的地址空间
+			 */
+			users: [
+				{
+					id: "0001",
+					title: "swimming"
+				},
+				{
+					id: "0002",
+					title: "watching"
+				},
+				{
+					id: "0003",
+					title: "meeting"
+				}
+			],
+		},
+	})
+</script>
+</body>
+</html>
