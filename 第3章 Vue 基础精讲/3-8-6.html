@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中列表渲染/数组多次循环</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<!--template可以理解成模板占位符，这样的好处是不会在页面里一直渲染循环渲染div-->
+	<template v-for="(user,index) of users" v-bind:key="user.id">
+		<div>
+			{{index}} => {{user.title}}
+		</div>
+		<span>
+			{{user.title}}
+		</span>
+	</template>
+</div>
+<script type="text/javascript">
+    var vm = new Vue({
+		el: "#app",
+		data: {
+			msg: "HelloWorld!",
+			/*定义一组数据列表，此处模拟后台发送的数据*/
+			users: [
+				{
+					id: "0001",
+					title: "swimming"
+				},
+				{
+					id: "0002",
+					title: "watching"
+				},
+				{
+					id: "0003",
+					title: "meeting"
+				}
+			],
+		},
+	})
+</script>
+</body>
+</html>
