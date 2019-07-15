@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中列表渲染/对象多次循环</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<!--数组循环参数是value(值),index(下标)-->
+	<!--对象循环参数是value(值),key(键),index(下标)-->
+	<div v-for="(info,key,index) of userInfo">
+		{{info}} => {{key}}
+	</div>
+</div>
+<script type="text/javascript">
+    var vm = new Vue({
+		el: "#app",
+		data: {
+			msg: "HelloWorld!",
+			/*定义一组数据列表，此处模拟后台发送的数据*/
+			userInfo: {
+				name: "Dale",
+				age: 22,
+				sex: "boy"
+			}
+		},
+	})
+</script>
+</body>
+</html>
