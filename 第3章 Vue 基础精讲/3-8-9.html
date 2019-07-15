@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中列表渲染/添加循环对象值</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<!--数组循环参数是value(值),index(下标)-->
+	<!--对象循环参数是value(值),key(键),index(下标)-->
+	<div v-for="(info,key,index) of userInfo">
+		{{info}} => {{key}}
+	</div>
+</div>
+<script type="text/javascript">
+    var vm = new Vue({
+		el: "#app",
+		data: {
+			msg: "HelloWorld!",
+			/*定义一组数据列表，此处模拟后台发送的数据*/
+			/**
+			 * 现在想对对象添加数据信息
+			 * 添加 address = "Beijing"
+			 * vm.$data.userInfo.address = "Beijing"
+			 * 此时数据会成功添加到对象中，但是不会立即渲染页面
+			 * vm.$data.userInfo 可以找到所有数据信息，包括address
+			 * 
+			 * 那也可以更改引用值，指向新的地址，跟数组差不多，直接修改后完整复制过来
+			 */
+			userInfo: {
+				name: "Dale",
+				age: 22,
+				sex: "boy"
+			}
+		},
+	})
+</script>
+</body>
+</html>
