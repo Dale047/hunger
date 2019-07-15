@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中条件渲染</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<!--v-if后面依旧跟条件表达式，返回值为boolean-->
+	<!--此处v-if的值决定是否展示-->
+	<div v-if="isShow">
+		{{msg}}
+	</div>
+	<!--v-show效果跟v-if一样，判断是否渲染DOM-->
+	<!--v-if不会渲染在DOM-->
+	<!--v-show会渲染在DOM，通过display:none解决隐藏-->
+	<!--v-show效率会更高，不需要每一次都重新渲染DOM-->
+	<div v-show="isShow">{{msg}}</div>
+	<!--成对的v-if else渲染DOM-->
+	<div v-if="isShow">
+		{{msg}}
+	</div>
+	<div v-else="isShow">
+		{{error}}
+	</div>
+	<!--通过恒等来判断，结果依旧为布尔-->
+	<!--依旧为布尔判断-->
+	<div v-if="tip == 'a'">
+		您选择的是a
+	</div>
+	<div v-else-if="tip == 'b'">
+		您选择的是b
+	</div>
+	<div v-else="isShow">
+		参数错误
+	</div>
+</div>
+<script type="text/javascript">
+    var vm = new Vue({
+		el: "#app",
+		data: {
+			msg: "HelloWorld!",
+			error: "ERROR",
+			tip: "a",
+			isShow:false,
+		},
+		methods: {
+			
+		}
+	})
+</script>
+</body>
+</html>
