@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>父组件向子组件传值</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--Vue中不主张直接操作DOM，通过绑定数据处理-->
+<div id="app">
+	<!--父组件通过属性的方式向子组件传递-->
+	<!--v-bind:count="0"传递的是数字，是js表达式，所以是数字-->
+	<!--count="0"传递的是字符串-->
+	<counter v-bind:count="0"></counter>
+	<counter v-bind:count="1"></counter>
+</div>
+<script type="text/javascript">
+	//之前有些全局组件，此处改成局部组件
+	var counter = {
+		//props 子组件接收父组件传递过来（绑定）的数据
+		props: ['count'],
+		//不再直接使用{{count}}，转而使用初始化的number值
+		template: "<div v-on:click='handleClick'>{{number}}</div>",
+		methods: {
+			handleClick: function() {
+				/**
+				 * this.count ++ 这种方式能实现功能，但是控制台会报错
+				 * 单项数据流，父组件可以随意向子组件传值修改
+				 * 子组件可以成功接收到父组件数据，但是不允许修改
+				 * 不然会影响其他子组件的相关数据
+				 */
+				this.number ++
+			}
+		},
+		data: function() {
+			return {
+				//接收的值赋值给初始化的值，克隆的数据才能使用
+				number: this.count
+			}
+		}
+	}
+	//vm一般指的都是vue的实例，让实例去接管页面DOM，赋值;
+	var vm = new Vue({
+		el: '#app',
+		data: {
+		},
+		//在根组件中注册子组件
+		components: {
+			counter: counter
+		},
+		methods: {
+		}
+	})
+</script>
+</body>
+</html>
