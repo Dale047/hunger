@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>组件传值简单参数校验</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--Vue中不主张直接操作DOM，通过绑定数据处理-->
+<div id="app">
+	<!--我原本写的是v-bind:content，但是提示报错，去掉v-bind后正常-->
+	<!--看了4-2-2的案例，原来只有是数字的时候才能用v-bind-->
+	<!--除了数字，其他全部不允许用v-bind-->
+	<child content="demo"></child>
+</div>
+<script type="text/javascript">
+	Vue.component("child",{
+		/**
+		 * props 接收参数方式由数组更改成对象
+		 * props: [] => props: {} 
+		 * 通过对象的方式来做参数校验
+		 * 如果传值不符合要求，控制台会报错，但是页面不会做错误显示
+		 * 6种数据类型：Number String Array Object Null Undefined
+		 */
+		props: {
+			//要求传过来的参数必须是string或Number类型
+			content: [String,Number],
+		},
+		template:'<div>This child template {{content}}</div>'
+	})
+	//vm一般指的都是vue的实例，让实例去接管页面DOM，赋值;
+	var vm = new Vue({
+		el: '#app',
+		data: {
+		},
+	})
+</script>
+</body>
+</html>
