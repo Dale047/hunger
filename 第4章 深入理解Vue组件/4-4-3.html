@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>子向父抛送绑定原生事件</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--Vue中不主张直接操作DOM，通过绑定数据处理-->
+<div id="app">
+	<child v-on:pushclick="pushClick"></child>
+</div>
+<script type="text/javascript">
+	Vue.component('child',{
+		//直接在子组件的模板中定义事件
+		template:"<div v-on:click='handleClick'>This is child</div>",
+		methods: {
+			//在子组件中抛送事件到父组件
+			handleClick: function() {
+				this.$emit('pushclick');
+			}
+		}
+	})
+	//vm一般指的都是vue的实例，让实例去接管页面DOM，赋值;
+	var vm = new Vue({
+		el: '#app',
+		data: {
+		},
+		methods: {
+			pushClick: function() {
+				alert("子组件成功抛送到父组件");
+			}
+		}
+	})
+</script>
+</body>
+</html>
