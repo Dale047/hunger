@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>组件使用中is使用</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<!--解决子组件模板里面的tr和td标签跑到table标签外边-->
+	<table>
+		<!--以后可以多留意这种tbody书写方式-->
+		<tbody>
+			<!--正常子组件的创建与使用-->
+			<!--如果今后遇到了组件上的bug，都要靠is方式-->
+			<!--除了表格，还会有ul和li的问题，也要加is-->
+			<tr is="row"></tr>
+			<tr is="row"></tr>
+			<tr is="row"></tr>
+			<tr is="row"></tr>
+		</tbody>
+	</table>
+	<!--除了表格，还会有ul和li的问题，也要加is-->
+	<ul>
+		<li is="li-row"></li>
+		<li is="li-row"></li>
+		<li is="li-row"></li>
+	</ul>
+</div>
+<script type="text/javascript">
+	//创建全局组件
+	Vue.component("row",{
+		template: "<tr><td>this is a row</td></tr>"
+	})
+	//创建全局组件
+	Vue.component("liRow",{
+		template: "<li>this is a row</li>"
+	})
+	//vm一般指的都是vue的实例，让实例去接管页面DOM，赋值;
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			msg : "Hello"
+		},
+	})
+</script>
+</body>
+</html>
