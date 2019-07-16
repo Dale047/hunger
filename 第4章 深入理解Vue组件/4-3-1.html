@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>父组件传值特性</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--Vue中不主张直接操作DOM，通过绑定数据处理-->
+<div id="app">
+	<!--我原本写的是v-bind:content，但是提示报错，去掉v-bind后正常-->
+	<!--看了4-2-2的案例，原来只有是数字的时候才能用v-bind-->
+	<!--除了数字，其他全部不允许用v-bind-->
+	<child content="demo"></child>
+</div>
+<script type="text/javascript">
+	Vue.component("child",{
+		props: ['content'],
+		template:'<div>This child template {{content}}</div>'
+	})
+	//vm一般指的都是vue的实例，让实例去接管页面DOM，赋值;
+	var vm = new Vue({
+		el: '#app',
+		data: {
+		},
+	})
+</script>
+</body>
+</html>
