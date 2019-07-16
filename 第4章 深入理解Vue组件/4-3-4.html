@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>非props特性</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--Vue中不主张直接操作DOM，通过绑定数据处理-->
+<div id="app">
+	<!--除了数字，其他全部不允许用v-bind-->
+	<child content="demosss"></child>
+</div>
+<script type="text/javascript">
+	Vue.component("child",{
+		/**
+		 * props 特性
+		 * 1.不会将父传子抛送的props值展示在DOM结构中
+		 * 2.子组件中有props专门用来接收的值
+		 * 3.子组件中是直接可以使用插值表达式{{}}添加在组件中
+		 *************************************************
+		 * 非props 特性
+		 * 1.父组件向子组件传递一个属性，但是子组件并没有props用来接收值
+		 * 2.子组件没有声明也没有接收，所以子组件无法获取父组件传递的内容
+		 * 3.非props 会将父组件的属性展示在DOM结构中
+		 * 4.实际生产中 非props 用到的场景不是很多
+		 */
+		template:'<div>This child template</div>'
+	})
+	//vm一般指的都是vue的实例，让实例去接管页面DOM，赋值;
+	var vm = new Vue({
+		el: '#app',
+		data: {
+		},
+	})
+</script>
+</body>
+</html>
