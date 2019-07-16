@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>子组件中绑定原生事件</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--Vue中不主张直接操作DOM，通过绑定数据处理-->
+<div id="app">
+	<child></child>
+</div>
+<script type="text/javascript">
+	Vue.component('child',{
+		//直接在子组件的模板中定义事件
+		template:"<div v-on:click='handleClick'>This is child</div>",
+		methods: {
+			//在子组件中定义弹窗生效
+			handleClick: function() {
+				alert('handleClick');
+			}
+		}
+	})
+	//vm一般指的都是vue的实例，让实例去接管页面DOM，赋值;
+	var vm = new Vue({
+		el: '#app',
+		data: {
+		},
+		methods: {
+		}
+	})
+</script>
+</body>
+</html>
