@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>组件中使用ref</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--Vue中不主张直接操作DOM，通过绑定数据处理-->
+<div id="app">
+	<!--两个counter组件展示数据值不会干扰-->
+	<!--子组件向父组件传值，父组件做好监听-->
+	<!--ref引用值，在组件中使用，获取指定组件的引用-->
+	<counter ref="one" v-on:change="handleChange"></counter>
+	<counter ref="two" v-on:change="handleChange"></counter>
+	<!--现在我想让两个counter组件里面的number值相加-->
+	<div>{{total}}</div>
+</div>
+<script type="text/javascript">
+	Vue.component('counter',{
+		data: function() {
+			return {
+				number: 0,
+			}
+		},
+		methods: {
+			handleClick: function() {
+				this.number ++;
+				//子组件向父组件传值，$emit()向父组件抛送触发事件
+				this.$emit('change');
+			}
+		},
+		template: "<div v-on:click='handleClick'>{{number}}</div>",
+	})
+	//vm一般指的都是vue的实例，让实例去接管页面DOM，赋值;
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			msg : "Hello",
+			total: 0
+		},
+		methods: {
+			handleChange: function() {
+				// alert("change!");
+				console.log(this.$refs.one.number);
+				console.log(this.$refs.two.number);
+				this.total = this.$refs.one.number + this.$refs.two.number
+			}
+		}
+	})
+</script>
+</body>
+</html>
