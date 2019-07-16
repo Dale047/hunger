@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>非父子组件间的传值/总线模式修改</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--Vue中不主张直接操作DOM，通过绑定数据处理-->
+<div id="app">
+	<!--实现在不同的child组件传递数据-->
+	<!--父组件向子组件传值形式-->
+	<!--
+		实现的功能：
+		点击"Dale","Tom"会变成"Dale"，
+		点击"Tom","Dale"会变成"Tom"
+	-->
+	<child content="Dale"></child>
+	<child content="Tom"></child>
+</div>
+<script type="text/javascript">
+	/**
+	 * 往Vue.prototype上挂载bus这个属性
+	 * bus指向的是Vue的实例
+	 * 以后只要实例Vue的时候，都会调用bus这个属性
+	 */
+	Vue.prototype.bus = new Vue()
+
+	Vue.component('child',{
+		data: function() {
+			return {
+				selfContent : this.content
+			}
+		},
+		props: {
+			content: String
+		},
+		//绑定单击事件
+		template:"<div v-on:click='handleClick'>{{selfContent}}</div>",
+		methods: {
+			handleClick: function() {
+				/**
+				 * this.bus 实例Vue挂载存在的bus
+				 * $emit() 向外事件触发的方法
+				 * change 抛送名为change的事件
+				 * this.content 抛送的时候带this.content参数
+				 */
+				this.bus.$emit('change',this.selfContent);
+			}
+		},
+		/**
+		 * 当其他组件在调用非父子组件的时候，做好监听
+		 * 通过钩子函数：
+		 * 只要调用组件就会挂载这个组件
+		 * 挂载的方式监听事件是否被调用
+		 */
+		mounted: function() {
+			//修改的是挂载的域，跟原域不同
+			var this_ = this;
+			/**
+			 * bus 已经挂载的属性
+			 * $on() 监听的方法
+			 * 第一个参数：'change' 监听change属性被改变
+			 * 第二个参数：回调函数
+			 */
+			this.bus.$on('change',function(msg) {
+				/**
+				  * 此时会弹窗两次
+				  * 因为绑定的是child组件有两个，所以弹窗2次
+				  */
+				// alert(msg);
+				this_.selfContent = msg;
+				//此时页面DOM效果发生改变
+				//但是控制台处于报错
+				//因为子组件修改了父组件
+			})
+		}
+	})
+	var vm = new Vue({
+		el: '#app',
+		data: {
+		},
+	})
+</script>
+</body>
+</html>
