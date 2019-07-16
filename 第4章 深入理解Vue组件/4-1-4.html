@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>标签ref获取DOM节点</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--Vue中不主张直接操作DOM，通过绑定数据处理-->
+<div id="app">
+	<!--ref引用值，在标签中使用，获取指定DOM的元素-->
+	<div ref="hello" v-on:click="handleClick">
+		<p>
+			{{msg}}
+		</p>
+	</div>
+</div>
+<script type="text/javascript">
+	//vm一般指的都是vue的实例，让实例去接管页面DOM，赋值;
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			msg : "Hello"
+		},
+		methods: {
+			handleClick: function() {
+				/**
+				 * this 绑定的el
+				 * $refs 所有ref引用值
+				 * hello 是我其中的一个引用值的名称
+				 * innerHTML 获取DOM中值
+				 */
+				console.log(this.$refs.hello.innerHTML);
+			}
+		}
+	})
+</script>
+</body>
+</html>
