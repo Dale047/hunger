@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中使用具名插槽</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--Vue中不主张直接操作DOM，通过绑定数据处理-->
+<div id="app">
+	<body-content>
+		<!--先给插槽起名字-->
+		<div class="header" slot="header">Header</div>
+		<div class="footer" slot="footer">Footer</div>
+	</body-content>
+</div>
+<script type="text/javascript">
+	/**
+	 * Vue的插槽
+	 * 在很多Vue的第三方插件中用到插槽
+	 * 插槽指的就是父组件向子组件插入DOM
+	 */
+	Vue.component('body-content',{
+		/**
+		 * 之前已经在父组件中给插槽起了名字
+		 * 此时在模板中接收父组件插槽
+		 * 引用插槽名
+		 * 此时效果已经被更改
+		 * header
+		 * content
+		 * footer
+		 * 一一对应
+		 ************************************
+		 * 可以这样理解：
+		 * 1.插槽有一个，并且直接<slot>调用即可，还可以设置默认值
+		 * 2.具名插槽有多个，可以<slot>一次性调用，也可以指定name调用，具名插槽也有默认值
+		 */
+		template:`<div>
+			<!--模拟第一个<slot>标签是header-->
+			<slot name='header'></slot>
+			<div class='content'>content</div>
+			<!--模拟第二个<slot>标签是footer-->
+			<slot name='footer'></slot>
+		</div>`,
+	})
+	var vm = new Vue({
+		el: '#app',
+	})
+</script>
+</body>
+</html>
