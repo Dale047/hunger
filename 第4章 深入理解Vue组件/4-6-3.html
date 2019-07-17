@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>在Vue中使用插槽</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--Vue中不主张直接操作DOM，通过绑定数据处理-->
+<div id="app">
+	<child>
+		<!--在父组件中直接插入一个DOM，在子组件中做接收-->
+		<p>Dale</p>
+	</child>
+</div>
+<script type="text/javascript">
+	/**
+	 * Vue的插槽
+	 * 在很多Vue的第三方插件中用到插槽
+	 * 插槽指的就是父组件向子组件插入DOM
+	 */
+	Vue.component('child',{
+		/**
+		 * Vue中内置slot新语法
+		 * 内容就是接收父组件插入的新值
+		 * 此处slot代指的就是<p>Dale</p>
+		 * 效果会将父组件插入的DOM和子组件中的DOM是同一级别
+		 */
+		template:`<div>
+					 <p>Hi</p>
+					 <slot></slot>
+				  </div>`,
+	})
+	var vm = new Vue({
+		el: '#app',
+	})
+</script>
+</body>
+</html>
