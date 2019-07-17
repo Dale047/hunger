@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>在Vue插槽插入一组</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--Vue中不主张直接操作DOM，通过绑定数据处理-->
+<div id="app">
+	<body-content>
+		<div class="header">Header</div>
+		<div class="footer">Footer</div>
+	</body-content>
+</div>
+<script type="text/javascript">
+	/**
+	 * Vue的插槽
+	 * 在很多Vue的第三方插件中用到插槽
+	 * 插槽指的就是父组件向子组件插入DOM
+	 */
+	Vue.component('body-content',{
+		/**
+		 ***********页面效果并不是*****
+		 * header
+		 * content
+		 * footer
+		 ***********反而是*************
+		 * header
+		 * footer
+		 * content
+		 * header
+		 * footer
+		 *****************************
+		 * 原因是上面的header和footer成了一个套装
+		 * 所以插入的时候一次性插入header和footer两个
+		 * 此时需要使用具名插槽解决
+		 */
+		template:`<div>
+			<!--模拟第一个<slot>标签是header-->
+			<slot></slot>
+			<div class='content'>content</div>
+			<!--模拟第二个<slot>标签是footer-->
+			<slot></slot>
+		</div>`,
+	})
+	var vm = new Vue({
+		el: '#app',
+	})
+</script>
+</body>
+</html>
