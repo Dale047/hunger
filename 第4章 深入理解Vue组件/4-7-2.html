@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中作用域插槽</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--
+	什么时候作用域插槽呢？
+	1.当子组件用作循环
+	2.子组件某一部分应该由外部传递进来的时候
+	作用域插槽使用注意：
+	1.子组件可以向父组件里面插槽传输数据
+	2.父组件传递过来的数据如果向接收数据，必须在外部使用<template>，同时也要加上属性slot-scope
+-->
+<div id="app">
+	<child>
+		<!--template属于固定写法-->
+		<!--props属于定义的作用域插槽属性，可以随便定义-->
+		<!--
+			定义的意义：
+			当子组件使用<slot>的时候,会往<slot>里面传递数据（本案例是item）
+			所以在调用child组件的时候就可以用这个数据
+			而这个数据就在slot-scope="props"的属性之中
+		-->
+		<template slot-scope="props">
+			<!--
+				例如此处我想循环item
+				这里的循环就做到了由父组件在调子组件的时候，给子组件传递对应的模板
+				我还可以把子组件中的模板改个<h1>样式
+			-->
+			<li><h1>{{props.item}}</h1></li>
+		</template>
+	</child>
+</div>
+<script type="text/javascript">
+	Vue.component('child',{
+		data: function() {
+			return {
+				//定义一个列表数据
+				list: [1,2,3,4]
+			}
+		},
+		/***************************************************
+		 * child组件肯定会多次调用，list[]数据肯定也会被多次调用
+		 * 现在我想不同的地方调用child组件的时候
+		 * 列表的循环、列表的样式等不是由child组件决定的
+		 * 而是由外部所决定的
+		 ***************************************************
+		 * 也就是说把<li>标签中渲染单独提炼出来用作<slot>
+		 */
+		template:`<div>
+			<ul>
+				<slot v-for="item of list" v-bind:item="item">
+					{{item}}
+				</slot>
+			</ul>
+		</div>`,
+	})
+	var vm = new Vue({
+		el: '#app',
+	})
+</script>
+</body>
+</html>
