@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>初识Vue中作用域插槽</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--Vue中不主张直接操作DOM，通过绑定数据处理-->
+<div id="app">
+	<child></child>
+</div>
+<script type="text/javascript">
+	Vue.component('child',{
+		data: function() {
+			return {
+				//定义一个列表数据
+				list: [1,2,3,4]
+			}
+		},
+		/**
+		 * 模板可以通过<li>循环遍历数据
+		 ************************************
+		 * 现在有一个需求：
+		 * child组件肯定会多次调用，list[]数据肯定也会被多次调用
+		 * 现在我想不同的地方调用child组件的时候
+		 * 列表的循环、列表的样式等不是由child组件决定的
+		 * 而是由外部所决定的，该如何渲染？
+		 */
+		template:`<div>
+			<ul>
+				<li v-for="item of list">
+					{{item}}
+				</li>
+			</ul>
+		</div>`,
+	})
+	var vm = new Vue({
+		el: '#app',
+	})
+</script>
+</body>
+</html>
