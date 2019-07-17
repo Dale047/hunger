@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>父组件直接在子组件插入DOM</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--Vue中不主张直接操作DOM，通过绑定数据处理-->
+<div id="app">
+	<child content="<p>Dale</p>"></child>
+</div>
+<script type="text/javascript">
+	/**
+	 * Vue的插槽
+	 * 在很多Vue的第三方插件中用到插槽
+	 * 插槽指的就是父组件向子组件插入DOM
+	 */
+	Vue.component('child',{
+		data :function() {
+			return {
+				msg: "Hello"
+			}
+		},
+		props: ['content'],
+		/**
+		 * 父组件会传标签字符串到子组件
+		 * 但是此处页面会将<p>标签做转义，也显示在页面
+		 * 同时<p>标签也会显示在DOM树中
+		 * 该如何处理？
+		 * 父组件如何向子组件优雅的传送DOM
+		 */
+		template:"<div><p>{{msg}}</p>{{content}}</div>",
+	})
+	var vm = new Vue({
+		el: '#app',
+	})
+</script>
+</body>
+</html>
