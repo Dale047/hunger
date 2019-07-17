@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>v-once指令</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<!--
+		针对耗费性能通过v-once做好优化
+		v-once可以直接将组件放到内存里面，直接读取，无需再创建-销毁-创建
+		所以在Vue中，v-once可以提高静态页面的展示效率
+	-->
+	<component v-bind:is="type"></component>
+	<!--插入Button按钮做业务逻辑-->
+	<button v-on:click="handleBtnClick">Click Me</button>
+</div>
+<script type="text/javascript">
+	//首先创建child-one和child-two两个组件
+	Vue.component('child-one',{
+		template:'<div v-once>child-one</div>'
+	})
+	Vue.component('child-two',{
+		template:'<div v-once>child-two</div>'
+	})
+
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			type: 'child-one'
+		},
+		methods: {
+			//通过 单击事件 搭配 v-if 就能实现展示和隐藏效果
+			handleBtnClick: function() {
+				this.type = this.type == 'child-one' ? 'child-two' : 'child-one'
+			}
+		}
+	})
+</script>
+</body>
+</html>
