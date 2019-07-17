@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>非动态组件方式改变组件</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<!--组件中调用创建的两个组件-->
+	<child-one v-if="type == 'child-one'"></child-one>
+	<child-two v-if="type == 'child-two'"></child-two>
+	<!--插入Button按钮做业务逻辑-->
+	<button v-on:click="handleBtnClick">Click Me</button>
+</div>
+<script type="text/javascript">
+	//首先创建child-one和child-two两个组件
+	Vue.component('child-one',{
+		template:'<div>child-one</div>'
+	})
+	Vue.component('child-two',{
+		template:'<div>child-two</div>'
+	})
+
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			type: 'child-one'
+		},
+		methods: {
+			//通过 单击事件 搭配 v-if 就能实现展示和隐藏效果
+			handleBtnClick: function() {
+				this.type = this.type == 'child-one' ? 'child-two' : 'child-one'
+			}
+		}
+	})
+</script>
+</body>
+</html>
