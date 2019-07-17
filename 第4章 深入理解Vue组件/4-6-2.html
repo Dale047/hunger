@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>父组件通过v-html在子组件插入DOM</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--Vue中不主张直接操作DOM，通过绑定数据处理-->
+<div id="app">
+	<child content="<p>Dale</p>"></child>
+</div>
+<script type="text/javascript">
+	/**
+	 * Vue的插槽
+	 * 在很多Vue的第三方插件中用到插槽
+	 * 插槽指的就是父组件向子组件插入DOM
+	 */
+	Vue.component('child',{
+		data :function() {
+			return {
+				msg: "Hello"
+			}
+		},
+		props: ['content'],
+		/**
+		 * 使用ES6写法
+		 * 此处不能使用template，渲染不出来
+		 * 页面效果不会显示<p>标签了
+		 * 但是DOM树中会多出很多空<div>标签
+		 * 内容少的时候不明显，但是一旦多起来就麻烦了
+		 * 此时就需要插槽语法，见4-6-3
+		 */
+		template:`<div>
+					<p>{{msg}}</p>
+					<div v-html="this.content"></div>
+				  </div>`,
+	})
+	var vm = new Vue({
+		el: '#app',
+	})
+</script>
+</body>
+</html>
