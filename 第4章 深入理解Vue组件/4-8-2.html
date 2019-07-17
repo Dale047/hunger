@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>动态组件is</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<!--
+		使用：
+			component在Vue中指的是动态组件标签
+		绑定：
+			绑定type属性值做到动态切换
+		自动加载：
+			is是根据绑定的数据变化，自动加载不同的组件
+		缺点：
+			1.每次单击不同的事件会造成组件的重新创建、销毁、在创建的复杂过程
+			2.耗费性能和资源
+	-->
+	<component v-bind:is="type"></component>
+	<!--插入Button按钮做业务逻辑-->
+	<button v-on:click="handleBtnClick">Click Me</button>
+</div>
+<script type="text/javascript">
+	//首先创建child-one和child-two两个组件
+	Vue.component('child-one',{
+		template:'<div>child-one</div>'
+	})
+	Vue.component('child-two',{
+		template:'<div>child-two</div>'
+	})
+
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			type: 'child-one'
+		},
+		methods: {
+			//通过 单击事件 搭配 v-if 就能实现展示和隐藏效果
+			handleBtnClick: function() {
+				this.type = this.type == 'child-one' ? 'child-two' : 'child-one'
+			}
+		}
+	})
+</script>
+</body>
+</html>
