@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中使用animate.css库</title>
+	<link rel="stylesheet" type="text/css" href="../animate.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style type="text/css">
+		/**
+		 * 不想自己写，需要借助animate.css库中代码来完成css3特效
+		 * 官方网站：https://daneden.github.io/animate.css/
+		 * 如何用？
+		 * 1.提前下载好animate.css库放入项目中
+		 * 2.引入animate.css文件
+		 * 3.删除我们自己写的css3文件，转而使用animate.css
+		 */
+	</style>
+</head>
+<body>
+<div id="app">
+	<!--现在想不再使用系统给的复杂类名，自己自定义类名-->
+	<!--
+		使用方式：
+			class="animated 特效"
+			具体特效可以在官网查看
+		注意事项：
+			1.一定要把自定义的类名改成库名
+			2.第二个类名是特效名称
+	-->
+	<transition name="fade" enter-active-class="animated swing" leave-active-class="animated shake">
+		<!--此处将v-if改成v-show也能实现-->
+		<div v-if="show">Hello World!</div>
+	</transition>
+	<button v-on:click="handleClick">切换</button>
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			show: true,
+		},
+		methods: {
+			handleClick: function() {
+				this.show = !this.show
+			}
+		}
+	})
+</script>
+</body>
+</html>
