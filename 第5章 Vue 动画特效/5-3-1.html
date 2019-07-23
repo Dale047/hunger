@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中同时使用过渡和动画/刷新时特效</title>
+	<link rel="stylesheet" type="text/css" href="../animate.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<!--
+		在5-2-3.html进入浏览器的时候会发现页面并没有加载进来
+		现在我想在刷新的时候就有动画加载进来
+		使用方式：
+		1.一定要提前加载appear
+		2.appear-active-class="animated 特效"
+	-->
+	<transition name="fade" appear enter-active-class="animated swing" leave-active-class="animated shake" appear-active-class="animated swing">
+		<!--此处将v-if改成v-show也能实现-->
+		<div v-if="show">Hello World!</div>
+	</transition>
+	<button v-on:click="handleClick">切换</button>
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			show: true,
+		},
+		methods: {
+			handleClick: function() {
+				this.show = !this.show
+			}
+		}
+	})
+</script>
+</body>
+</html>
