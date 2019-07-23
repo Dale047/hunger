@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中使用animate.css库/自定义类名</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style type="text/css">
+		/**
+		 * css3-animate-it是支持放大缩小、从不同方向渐变显示，旋转等CSS3CSS3动画特效集合
+		 * 包括bounceIn特效
+		 */
+		
+		/*了解运行流程，书写动画*/
+		@keyframes bounce-in {
+			/*scale(倍数)2D缩放*/
+			0% {
+				transform: scale(0);
+			}
+			50% {
+				transform: scale(1.5);
+			}
+			100% {
+				transform: scale(1);
+			}
+		}
+		
+		.active {
+			transform-origin: left center;
+			animation: bounce-in 1s;
+		}
+
+		.leave {
+			transform-origin: left center;
+			animation: bounce-in 1s reverse;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<!--现在想不再使用系统给的复杂类名，自己自定义类名-->
+	<transition name="fade" enter-active-class="active" leave-active-class="leave">
+		<!--此处将v-if改成v-show也能实现-->
+		<div v-if="show">Hello World!</div>
+	</transition>
+	<button v-on:click="handleClick">切换</button>
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			show: true,
+		},
+		methods: {
+			handleClick: function() {
+				this.show = !this.show
+			}
+		}
+	})
+</script>
+</body>
+</html>
