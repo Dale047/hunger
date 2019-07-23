@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中特效js钩子/入场before-enter</title>
+	<link rel="stylesheet" type="text/css" href="../animate.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<!--
+		之前是通过css3来完成动画效果，
+		同样也可以使用js来完成动画效果，
+		可以使用transition的钩子.
+		监听：
+		1.before-enter：在动画从隐藏到显示的那一瞬间的流程
+	-->
+	<transition name="fade" v-on:before-enter="handleBeforeEnter">
+		<!--此处将v-if改成v-show也能实现-->
+		<div v-if="show">Hello World!</div>
+	</transition>
+	<button v-on:click="handleClick">切换</button>
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			show: true,
+		},
+		methods: {
+			handleClick: function() {
+				this.show = !this.show
+			},
+			handleBeforeEnter: function() {
+				//钩子函数，在动画展示前(show)被打印
+				console.log("在出来前被打印");
+			}
+		}
+	})
+</script>
+</body>
+</html>
