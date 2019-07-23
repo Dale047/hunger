@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中动画使用（可略过）</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style type="text/css">
+		.fade-enter,.fade-leave-to {
+			opacity: 0 /*表示当前处于隐藏状态*/
+		}
+
+		.fade-enter-active,.fade-leave-active {
+			transition: opacity 1s;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<!--
+		目前的效果是渐隐渐变，
+		假设对于这种特效是需求较大，以后可能还会用到，
+		现在我们对高度使用的动画进行封装
+	-->
+	<transition name="fade">
+		<!--此处将v-if改成v-show也能实现-->
+		<div v-if="show">Hello World!</div>
+	</transition>
+	<button v-on:click="handleClick">切换</button>
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			show: true,
+		},
+		methods: {
+			handleClick: function() {
+				this.show = !this.show
+			}
+		}
+	})
+</script>
+</body>
+</html>
