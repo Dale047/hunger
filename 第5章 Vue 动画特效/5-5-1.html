@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中多个元素的过渡</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style type="text/css">
+		.fade-enter, .fade-leave-to {
+			opacity: 0;
+		}
+		.fade-enter-active, .fade-leave-acvite {
+			transition: opacity 1s;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<!--
+		需求：
+		1.下面的两个div要来回切换
+		2.切换之间要添加动画
+		问题：
+		1.写完css界面不会产生变化，因为界面复用Vue中DOM结构，现在需要给唯一的定值key
+		2.提供了mode，对于多个元素切换的设置，此处in-out，先进来，再离开（隐藏）
+	-->
+	<transition name="fade" mode="in-out">
+		<!--此处将v-if改成v-show也能实现-->
+		<div v-if="show" key="hello">Hello World!</div>
+		<div v-else key="bye">Bye~</div>
+	</transition>
+	<button v-on:click="handleClick">切换</button>
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			show: true,
+		},
+		methods: {
+			handleClick: function() {
+				this.show = !this.show
+			},
+		}
+	})
+</script>
+</body>
+</html>
