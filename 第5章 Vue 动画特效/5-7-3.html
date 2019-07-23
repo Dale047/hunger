@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中动画封装/组件方式（样式）</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style type="text/css">
+		/**
+		 * 删除CSS样式
+		 * 在组件中添加js动画样式
+		 */
+	</style>
+</head>
+<body>
+<div id="app">
+	<!--
+		目前的效果是渐隐渐变，
+		假设对于这种特效是需求较大，以后可能还会用到，
+		现在我们对高度使用的动画进行封装
+	-->
+	<!--
+		通过创建组件，把动画放入组件中
+		等到需要用到的时候直接添加组件，在里面添加DOM需求就OK
+	-->
+	<!--将js动画函数添加在组件中-->
+	<fade v-bind:show="show">
+		<div>Hello World</div>
+	</fade>
+	<fade v-bind:show="show">
+		<h1>Hello World</h1>
+	</fade>
+	<button v-on:click="handleClick">切换</button>
+</div>
+<script type="text/javascript">
+	//创建一个fade组件
+	Vue.component('fade',{
+		props: ['show'],
+		template: `
+			<transition name="fade"  v-on:before-enter="handleBeforeEnter" v-on:enter="hanldeEnter" v-on:after-enter="handleAfterEnter">
+				<slot v-if="show"></slot>
+			</transition>
+		`,
+		//添加的方式与5-4-3雷相似
+		methods: {
+			//参数el指的是绑定的div标签
+			handleBeforeEnter: function(el) {
+				//钩子函数，在动画展示前(show)被打印
+				console.log("在出来前被打印");
+				//利用钩子，可以暂时更改一下样式
+				el.style.color = "red"
+			},
+			/**
+			 * 一共两个参数
+			 * el：div标签
+			 * done：回调函数
+			 */
+			hanldeEnter: function(el, done) {
+				//执行页面加载完后的2s，页面部分文字变成绿色
+				setTimeout(() => {
+					el.style.color = "green";
+					/**
+					 * 一定要在该函数执行完后调用回调函数，告诉Vue执行完毕
+					 * 在此步骤执行完毕后又会调用一个after-enter函数
+					 * 一定要执行函数之后才会触发后面的钩子函数
+					 */
+					done()
+				},2000);
+			},
+			//参数el指的是绑定的div标签
+			handleAfterEnter: function(el) {
+				//所有函数加载完毕之后
+				console.log("此时页面函数被加载完毕");
+			}
+		}
+	})
+
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			show: true,
+		},
+		methods: {
+			handleClick: function() {
+				this.show = !this.show
+			}
+		}
+	})
+</script>
+</body>
+</html>
