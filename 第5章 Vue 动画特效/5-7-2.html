@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中动画封装/组件方式（内容）</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style type="text/css">
+		.fade-enter,.fade-leave-to {
+			opacity: 0 /*表示当前处于隐藏状态*/
+		}
+
+		.fade-enter-active,.fade-leave-active {
+			transition: opacity 1s;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<!--
+		目前的效果是渐隐渐变，
+		假设对于这种特效是需求较大，以后可能还会用到，
+		现在我们对高度使用的动画进行封装
+	-->
+	<!--
+		通过创建组件，把动画放入组件中
+		等到需要用到的时候直接添加组件，在里面添加DOM需求就OK
+	-->
+	<fade v-bind:show="show">
+		<div>Hello World</div>
+	</fade>
+	<fade v-bind:show="show">
+		<h1>Hello World</h1>
+	</fade>
+	<button v-on:click="handleClick">切换</button>
+</div>
+<script type="text/javascript">
+	//创建一个fade组件
+	Vue.component('fade',{
+		props: ['show'],
+		template: `
+			<transition name="fade">
+				<slot v-if="show"></slot>
+			</transition>
+		`
+	})
+
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			show: true,
+		},
+		methods: {
+			handleClick: function() {
+				this.show = !this.show
+			}
+		}
+	})
+</script>
+</body>
+</html>
