@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中同时使用过渡和动画/自己定义动画执行的总时长</title>
+	<link rel="stylesheet" type="text/css" href="../animate.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style type="text/css">
+		.fade-enter, .fade-leave-to {
+			opacity: 0px;
+		}
+		.fade-enter-active, .fade-leave-active {
+			/*此处3s会和animated的1s起冲突，需要统一时常*/
+			transition: opacity 3s;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<!--
+		自己定义动画绑定执行的总时长:v-bind:duration="时长(毫秒)"
+		入场/离场 动画执行3s，但是剩下7s后DOM才会发生变化
+	-->
+	<transition v-bind:duration="10000" name="fade" appear enter-active-class="animated swing fade-enter-active" leave-active-class="animated shake fade-leave-active" appear-active-class="animated swing">
+		<!--此处将v-if改成v-show也能实现-->
+		<div v-if="show">Hello World!</div>
+	</transition>
+	<button v-on:click="handleClick">切换</button>
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			show: true,
+		},
+		methods: {
+			handleClick: function() {
+				this.show = !this.show
+			}
+		}
+	})
+</script>
+</body>
+</html>
