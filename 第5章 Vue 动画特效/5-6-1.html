@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中列表数据添加</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<!--
+		需求：
+		1.列表循环数组中的内容
+		2.点击btn按钮可以一直往数组中添加数据
+	-->
+	<!--一定要加key值，养成习惯，保证数据的唯一性，尽量不要用index作为key值-->
+	<div v-for="item of list" v-bind:key="item.id">
+		{{item.title}}
+	</div>
+	<button v-on:click="handleBtnClick">add</button>
+</div>
+<script type="text/javascript">
+	var count = 0;
+
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			list: []
+		},
+		methods: {
+			handleBtnClick: function() {
+				this.list.push ({
+					id: count ++,
+					title: 'hello world'
+				})
+			}
+		}
+	})
+</script>
+</body>
+</html>
