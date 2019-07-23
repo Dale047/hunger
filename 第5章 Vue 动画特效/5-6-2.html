@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中列表数据修改过渡</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style type="text/css">
+		.fade-enter, .fade-leave-to {
+			opacity: 0;
+		}
+		.fade-enter-active, .fade-leave-acvite {
+			transition: opacity 1s;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<!--
+		需求：
+		1.列表循环数组中的内容
+		2.点击btn按钮可以一直往数组中添加数据
+		3.对于数据添加修改的时候有过渡效果
+
+		transition-group标签效果跟transition类似，应用场景不同
+		-列表对应的数组，存在多条数据，是由多个transition包裹而成，有自己的动画
+		-转化为组
+	-->
+	<transition-group name="fade">
+		<div v-for="item of list" v-bind:key="item.id">
+			{{item.title}}
+		</div>
+	</transition-group>
+	<button v-on:click="handleBtnClick">add</button>
+</div>
+<script type="text/javascript">
+	var count = 0;
+
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			list: []
+		},
+		methods: {
+			handleBtnClick: function() {
+				this.list.push ({
+					id: count ++,
+					title: 'hello world'
+				})
+			}
+		}
+	})
+</script>
+</body>
+</html>
