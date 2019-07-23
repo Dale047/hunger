@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中特效js钩子/入场enter</title>
+	<link rel="stylesheet" type="text/css" href="../animate.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<!--
+		之前是通过css3来完成动画效果，
+		同样也可以使用js来完成动画效果，
+		可以使用transition的钩子.
+		监听：
+		1.before-enter：在动画从隐藏到显示的那一瞬间的流程
+		2.enter：可以理解成在加载完之后，页面完整被加载后
+	-->
+	<transition name="fade" v-on:before-enter="handleBeforeEnter" v-on:enter="hanldeEnter">
+		<!--此处将v-if改成v-show也能实现-->
+		<div v-if="show">Hello World!</div>
+	</transition>
+	<button v-on:click="handleClick">切换</button>
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			show: true,
+		},
+		methods: {
+			handleClick: function() {
+				this.show = !this.show
+			},
+			//参数el指的是绑定的div标签
+			handleBeforeEnter: function(el) {
+				//钩子函数，在动画展示前(show)被打印
+				console.log("在出来前被打印");
+				//利用钩子，可以暂时更改一下样式
+				el.style.color = "red"
+			},
+			/**
+			 * 一共两个参数
+			 * el：div标签
+			 * done：回调函数
+			 */
+			hanldeEnter: function(el, done) {
+				//执行页面加载完后的2s，页面部分文字变成绿色
+				setTimeout(() => {
+					el.style.color = "green";
+					/**
+					 * 一定要在该函数执行完后调用回调函数，告诉Vue执行完毕
+					 * 在此步骤执行完毕后又会调用一个after-enter函数
+					 */
+					done()
+				},2000);
+			}
+		}
+	})
+</script>
+</body>
+</html>
