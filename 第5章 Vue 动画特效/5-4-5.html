@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中velocity.js使用</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="../velocity.min.js"></script>
+</head>
+<body>
+<div id="app">
+	<!--
+		了解流程之后可以书写更复杂的特效代码，
+		学会使用velocity.js，
+		1.在官网：http://www.velocityjs.org/找到download
+		2.引用velocity.min.js包
+		3.删除自己所写的函数特效，将内容改成velocity.js内容
+	-->
+	<transition name="fade" v-on:before-enter="handleBeforeEnter" v-on:enter="hanldeEnter" v-on:after-enter="handleAfterEnter">
+		<!--此处将v-if改成v-show也能实现-->
+		<div v-show="show">Hello World!</div>
+	</transition>
+	<button v-on:click="handleClick">切换</button>
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			show: true,
+		},
+		methods: {
+			handleClick: function() {
+				this.show = !this.show
+			},
+			//参数el指的是绑定的div标签
+			handleBeforeEnter: function(el) {
+				//钩子函数，在动画展示前(show)被打印
+				//opacity指的是透明度
+				el.style.opacity = 0
+			},
+			/**
+			 * 一共两个参数
+			 * el：div标签
+			 * done：回调函数
+			 */
+			hanldeEnter: function(el, done) {
+				//执行页面加载完后
+				/**
+				 * 第一个参数：el标签（代指特效div）
+				 * 第二个参数：透明度变成1
+				 * 第三个参数：从透明度由0变成1的执行过程耗时1秒
+				 * complete 用于执行回调，此处执行done告诉Vue已经执行完毕
+				 */
+				Velocity(el, 
+							{opacity: 1}, 
+							{duration: 1000,
+								complete:done
+							}
+						);
+			},
+			//参数el指的是绑定的div标签
+			handleAfterEnter: function(el) {
+				//所有函数加载完毕之后
+				console.log("此时页面函数被加载完毕");
+			}
+		}
+	})
+</script>
+</body>
+</html>
