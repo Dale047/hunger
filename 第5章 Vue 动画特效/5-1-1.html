@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue中CSS动画原理</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style type="text/css">
+		/**
+		 * transition 过渡动画
+		 * 第1帧 fade-enter 和 fade-enter-active一起存在
+		 * 第2帧 fade-enter 就会被移除
+		 * opacity 指的是透明度
+		 */
+		.fade-enter {
+			opacity: 0 /*表示当前处于隐藏状态*/
+		}
+
+		/**
+		 * 为什么class类名以fade为前缀？
+		 * 因为我给transition标签的name是fade
+		 * 如果不写 name=fade，那么默认的就是v为前缀
+		 */
+		.fade-enter-active {
+			transition: opacity 1s;
+		}
+
+		/**
+		 * 如果是隐藏的状态的话，Vue也会创建隐藏动画流程
+		 * 第1帧 隐藏动画类名叫 fade-leave和 fade-leave-active
+		 * 第2帧 会移除 fade-leave，增加fade-leave-to类
+		 * 第3帧 动画结束 移除fade-leave-active 和 fade-leave-to类
+		 */
+		.fade-leave-to {
+			opacity: 0
+		}
+
+		.fade-leave-active {
+			transition: opacity 1s
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<!--
+		transition：包裹的内容有过渡的动画效果
+		需要对过渡效果起name名称（随意）
+		此时浏览器中还未生效，先在style了解动画流程
+		Vue中动画效果是对div绑定CSS样式实现的过渡动画效果
+	-->
+	<transition name="fade">
+		<!--此处将v-if改成v-show也能实现-->
+		<div v-if="show">Hello World!</div>
+	</transition>
+	<button v-on:click="handleClick">切换</button>
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			show: true,
+		},
+		methods: {
+			handleClick: function() {
+				this.show = !this.show
+			}
+		}
+	})
+</script>
+</body>
+</html>
