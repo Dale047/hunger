@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>项目代码结构</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+</div>
+<script type="text/javascript">
+	/**********************文件目录介绍**************
+	 * 1 README.md 项目说明文件
+	 * 2 package.js 项目依赖包
+	 *   =>表示项目对第三方的依赖
+	 * 3 package-lock 项目锁文件
+	 *   =>确定安装第三方包的版本，保证团队编译项目的统一
+	 * 4 LICENSE 项目开源协议说明
+	 * 5 public/index.html 项目首页的模板文件
+	 *   =>后面会深入讲解
+	 * 6 .postcss.config.js 对postcss的配置项
+	 *   =>默认对象为空也没有过多的配置需求
+	 *   =>可以先不管
+	 * 7 .gitignore 对git仓库上传的时候忽略该文件
+	 * 8 .eslintrc.js 对代码检测规范，判断是否有错
+	 * 9 .eslintignore 对指定文件忽略错误检测
+	 * 10 .editorconfig 对项目代码的配置
+	 * 	  =>代码缩进
+	 * 	  =>字符编码
+	 * 	  ...自己可添加...
+	 * 11 .babelrc 将项目单页面应用转成浏览器能够识别的项目代码
+	 * 12 static文件夹是存放静态文件
+	 * 13 node_modules存放项目依赖的Vue项目包
+	 * 14 src文件夹存放项目源代码
+	 *    =>main.js 项目入口文件
+	 *    =>App.vue 项目的原始根组件
+	 *    =>router.js 项目路由
+	 *    =>components 文件夹 项目的子组件
+	 *    =>assets 文件夹 项目的图片资源
+	 *    =>build 项目打包的配置项
+	 ***************配置文件************************
+	 * https://www.jianshu.com/p/a47662af75c5
+	 ***************业务逻辑************************
+	 * 真正项目不会对配置文件做配置文件做过多修改
+	 * 主要集中在src文件夹下的业务逻辑开发
+	 */
+</script>
+</body>
+</html>
