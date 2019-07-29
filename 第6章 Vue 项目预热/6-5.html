@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>项目代码初始化</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+</div>
+<script type="text/javascript">
+	/****************项目代码初始化********************
+	 * 1.为移动端开发添加标签
+	 *   1).<meta name="viewport" 
+	 *   		content="width=device-width,
+	 *   				 initial-scale=1.0,
+	 *   				 minimum-scale=1.0,
+	 *   				 maximum-scale=1.0,
+	 *   				 user-scalable=no">
+	 *   =>用户手指的放大和缩小是无效的
+	 *   =>页面的比例始终是1:1
+	 * 2.引入 reset.css 重置浏览器标签的样式表
+	 *   =>每一个手机浏览器的显示效果不同
+	 *   =>需要对样式进行初始化优化
+	 *   =>reset.css 重置浏览器标签的样式表
+	 *   1).下载reset.css，网上有能搜索到
+	 *   2).将静态资源移动到 项目/src/assets/
+	 *   3).创建 styles文件夹(名随便取)，将css放入
+	 *   4).这时打开可以发现reset.css就是对基础样式的修饰
+	 *   5).将初始化reset.css引入到项目入口
+	 *      =>项目的入口在 main.js
+	 *      =>import './assets/styles/reset.css'
+	 *      =>我在想为什么在这里引入，而不是在index.html里面引入？
+	 *      =>尝试了一下在index.html标签引入，
+	 * 发现界面无变化，而且控制台有异常，
+	 *      =>发现控制台的异常提示的问题是url地址是服务器地址
+	 *      =>先在main.js入口文件导入静态资源
+	 * 3.引入 border.css 解决多倍屏里1像素边框显示成多像素问题
+	 *   1).这是解决方案css文件
+	 *   2).旨在解决移动端的像素问题
+	 *   3).引入到 main.js 里
+	 *   =>import './assets/styles/border.css'
+	 * 4.在移动端使用click会产生300毫秒的延迟
+	 *   1).在控制台安装第三方 fastclick 平台依赖
+	 *   2).当前项目目录下 升级
+	 *      =>npm install fastclick --save
+	 *      =>如果报错:cnpm install fastclick --save 
+	 *   3).引入fastclick
+	 * 5.iconfont 解决icon问题
+	 * 6.删除无用的部分，删除之前测试添加无用的组件或内容
+	 *   =>将demo.bak上传到仓库
+	 *   =>简介部分用于开发项目
+	 */
+</script>
+</body>
+</html>
