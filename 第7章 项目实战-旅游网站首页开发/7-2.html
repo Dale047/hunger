@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>iconfont的使用和代码优化</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+</div>
+<script type="text/javascript">
+	/****************iconfont的使用和代码优化********************
+	 * 1.进入iconfont官网
+	 *   =>https://www.iconfont.cn
+	 * 2.找到官方图标库，搜索“大麦官方图标库”
+	 * 3.购物车图标是添加到即将要进行操作库
+	 * 4.需要7-2需要三个图标
+	 *   =>放大镜、向后箭头、向下箭头
+	 * 5.将图标添加至项目
+	 * 6.下载至本地
+	 * 7.将下载的压缩包解压，只要字体文件和iconfont.css
+	 * 8.在src/asset/styles 下创建iconfont文件夹
+	 * 9.将第7中字体文件移动到8的文件夹，iconfont.css移动到styles
+	 * 10.在iconfont.css里修改一下url引入文件路径
+	 * 11.删除不必要的类css（因为命名方式是拼音）
+	 *****************iconfont的使用****************************
+	 * 1.去main.js引入iconfont.css
+	 *   =>import './assets/styles/iconfont.css'
+	 *   =>此时控制台没有报错和异常，就代表成功
+	 *****************代码优化/定义全局背景色风格*****************
+	 * 1.定义全局背景色风格，为以后网站整体色调整
+	 * 2.在 src/asset/styles下创建 varibles.styl 全局文件
+	 * 3.在varibles.styl写变量
+	 *   =>$bgColor = #00bcd4
+	 * 4.样式引用样式配置不能直接使用import(Header.vue为例)
+	 *   =>@import '../assets/styles/varibles.styl'
+	 * 5.使用变量
+	 *   =>background = $bgColor
+	 *   =>可以查看Header.vue的css样式案例
+	 * 6.返回控制台，此时并没有发现异常或报错，色彩正常显示
+	 * 7.可以做测试，将变量样式颜色进行更改
+	 * 8. @ 符号代表的是src目录
+	 *    css中也可以使用，但是需更改成~@
+	 * 9.可以起类似于@符号的别名，但是cli3版本里我没有找到配置
+	 *   =>如果能改的话，修改后会报错，一定要记得重启服务器
+	 * 10.一个阶段完成，代码要上传/更新仓库
+	 */
+</script>
+</body>
+</html>
