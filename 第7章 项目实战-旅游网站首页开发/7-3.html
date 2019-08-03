@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>首页轮播图</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+</div>
+<script type="text/javascript">
+	/****************首页轮播图********************
+	 * 1.企业级开发之中，每开发一个功能都要在Git中创建分支
+	 *   1).在分支代码开发新功能
+	 *   2).等新功能开发完毕再将分支合并到主分支master
+	 * 2.本节轮播图新功能可以通过放到分支新功能
+	 * 3.轮播的开发需要借助vue-awesome-swiper
+	 *   1).进入GitHub搜索vue-awesome-swiper
+	 *      =>https://github.com/search?q=vue-awesome-swiper
+	 *   2).打开搜索到的项目，根据手册安装
+	 *      =>npm install vue-awesome-swiper --save
+	 *      =>安装包错改成cnpm install vue-awesome-swiper --save
+	 * 4.在全局使用vue-awesome-swiper，即main.js
+	 *   =>轮播插件import VueAwesomeSwiper from 'vue-awesome-swiper'
+	 *   =>轮播css样式导入import 'swiper/dist/css/swiper.css'
+	 *   =>Vue.use(VueAwesomeSwiper, { default global options })
+	 * 5.创建Swiper.vue用于轮播组件
+	 * 6.在Swiper组件中书写基本逻辑
+	 *   =><template></template>
+	 *   =><script type="text/javascript"></scrip>
+	 *   =><style lang="stylus" scoped></style>
+	 *   =>基本参数，以及div修改
+	 * 7.从插件官网中复制demo过来
+	 *   =>https://github.com/surmon-china/vue-awesome-swiper
+	 *   =>了解含义并且删除不必要的部分
+	 * 8.在Home.vue入口组件中导入/注册/使用轮播组件
+	 **********************************************************
+	 *   <!--向左箭头/上一张-->
+	 *   <div class="swiper-button-prev" slot="button-prev"></div>
+	 *   <!--向右箭头/下一张-->
+	 *   <div class="swiper-button-next" slot="button-next"></div>
+	 *   <!--轮播图滚动条-->
+	 *   <div class="swiper-scrollbar"   slot="scrollbar"></div>
+	 ****************首页轮播图样式优化与修改*********************
+	 * 1.将去哪网官网的在线链接地址复制到轮播组件中
+	 * 2.此时图片的宽高不太正确需要修正
+	 *   =>给每一个img加一个class
+	 *   =>width:100%
+	 *   =>height:0 表示自适应，让其自己撑开
+	 * 3.一定要给轮播图组件加上一个大div，防止暴露和提高用户体验
+	 *   =>overflow:hidden 如果插入的元素内容溢出，超出部分隐藏
+	 *   =>background:#eee 如果图片没有被加载，显示灰色
+	 *   =>padding-bottom:30%
+	 *     =>给div预留空间，防止下面元素抖动，也叫占位
+	 *     =>30% 比例计算是长款比例得出
+	 ****************给轮播图添加原点页码********************
+	 * 老师写法：
+	 * 		swiperOption: {
+	 *			pagination: '.swiper-pagination'
+	 *		}
+	 * 可能是因为版本问题，小圆点没有被展示，根据Github案例修改后
+	 * 		swiperOption: {
+	 *			pagination: {
+	 *				el: '.swiper-pagination',
+	 *				clickable:true
+	 *			}
+	 *		}
+	 ****************轮播图原点样式错误修改*********************
+	 * 原点样式swiper-pagination-bullet-active
+	 * 直接修改样式是没有作用的
+	 *   =>scoped已经明确表示只能当前样式
+	 ****************轮播图原点样式修改************************
+	 * 1.将swiper-pagination-bullet-active放入最顶层
+	 * 2..wrapper >>> .swiper-pagination-bullet-active
+	 *     background: white !important
+	 *   => >>>穿透，后代选择器，表示后面的类是前面的子类
+	 *   => !important 优先级，表示优先等级最高
+	 ****************首页轮播图优化与修改************************
+	 * 1.将轮播图所有信息存放到集合里，通过循环加载轮播图
+	 * 2.在轮播图组件的data数据里添加集合数组imgList
+	 * 3.将id和图片地址放入数组中的对象里，具体看Swiper组件
+	 *     swiperList: [{
+     *	     id: '0001',
+	 *	     imgUrl: 'http://**.jpg'
+	 *	    },{},{},{}]
+	 * 4.循环swiper组件
+	 *     <swiper-slide v-for="item of swiperList">
+	 * 	     <img class="swiper-img" v-bind:src="item.imgUrl">
+	 *     </swiper-slide>
+	 * 5.不要忘记之前所说，循环一定要加key值表唯一
+	 *   =><swiper-slide v-for="item of swiperList" v-bind:key="item.id">
+	 ****************首页轮播图循环展示***************************
+	 * 1.此时会有问题，首页轮播图无法循环展示
+	 * 2.增加配置，让循环插件支持轮播
+	 *   => loop:true
+	 */
+</script>
+</body>
+</html>
